@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta property="og:title" content="Raf Son Jany Rafad">
+<meta property="og:description" content="Microbiologist and bioinformatics researcher, Jashore University of Science and Technology">
+<meta property="og:image" content="images/portrait-thesis.jpg">
+<title>Raf Son Jany Rafad</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Raf Son Jany Rafad — microbiologist and bioinformatics researcher at Jashore University of Science and Technology, Bangladesh. Publications, presentations, training and contact.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600;7..72,700&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a genome-record page — a split hero with a sample "record" panel, then
+   sections headed by FASTA-style mono labels that carry real counts. */
+:root{
+  --bg:#f2f6f5; --surface:#ffffff; --ink:#0f201c; --muted:#4c615c; --line:#d3dedb;
+  --accent:#0d6a5b; --accent-soft:#e1efeb; --amber:#b8650f;
+  --shade:rgba(8,24,20,.86);
+  --f-display:"Literata", Georgia, "Times New Roman", serif;
+  --f-body:"Public Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --wrap:1120px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0b1412; --surface:#12201c; --ink:#e2ece9; --muted:#95aaa4; --line:#23362f;
+  --accent:#53c4aa; --accent-soft:#163029; --amber:#e9a24c; --shade:rgba(0,0,0,.9); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0b1412; --surface:#12201c; --ink:#e2ece9; --muted:#95aaa4; --line:#23362f;
+  --accent:#53c4aa; --accent-soft:#163029; --amber:#e9a24c; --shade:rgba(0,0,0,.9); color-scheme:dark}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.65 var(--f-body);-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+[hidden]{display:none!important}
+a{color:var(--accent);text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:4px}
+h1,h2,h3{font-family:var(--f-display);line-height:1.15;text-wrap:balance;margin:0}
+p{margin:0}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-left:max(20px, env(safe-area-inset-left, 0px));padding-right:max(20px, env(safe-area-inset-right, 0px))}
+
+/* header */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:30;background:var(--bg)}
+.top{position:sticky;top:env(safe-area-inset-top, 0px);z-index:20;background:color-mix(in srgb, var(--bg) 90%, transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:24px;height:60px}
+.brand{font:600 15px/1 var(--f-mono);color:var(--ink);text-decoration:none;white-space:nowrap}
+.brand span{color:var(--accent)}
+.nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;margin-left:auto;min-width:0}
+.nav::-webkit-scrollbar{display:none}
+.nav a{font-size:14px;color:var(--muted);text-decoration:none;padding:6px 10px;border-radius:6px;white-space:nowrap}
+.nav a:hover{color:var(--ink);background:var(--accent-soft)}
+
+/* section scaffolding */
+section{padding-block:72px;border-bottom:1px solid var(--line)}
+.label{font:500 13px/1 var(--f-mono);color:var(--accent);letter-spacing:.02em;margin-bottom:14px;display:flex;gap:10px;align-items:center}
+.label b{font-weight:500;color:var(--muted)}
+.h2{font-size:clamp(28px,4vw,40px);font-weight:600;max-width:22ch}
+.lede{color:var(--muted);max-width:62ch;margin-top:14px;font-size:17px}
+.head{margin-bottom:40px}
+
+/* hero */
+.hero{padding-block:56px 64px}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+.eyebrow{font:500 13px/1.4 var(--f-mono);color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.hero h1{font-size:clamp(40px,6.4vw,74px);font-weight:700;letter-spacing:-.01em;margin-top:14px}
+.hero h1 em{font-style:italic;font-weight:400;color:var(--accent)}
+.hero .intro{font-size:19px;max-width:52ch;margin-top:22px;color:var(--ink)}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.btn{display:inline-flex;align-items:center;gap:8px;font:500 15px/1 var(--f-body);padding:13px 18px;border-radius:8px;text-decoration:none;border:1px solid var(--line);color:var(--ink);background:var(--surface)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.btn:hover{border-color:var(--accent)}
+.record{margin-top:36px;font:400 13px/1.9 var(--f-mono);color:var(--muted);border-top:1px solid var(--line);padding-top:16px;display:grid;grid-template-columns:max-content 1fr;column-gap:20px}
+.record dt{color:var(--accent)}
+.record dd{margin:0;color:var(--ink);min-width:0}
+.portrait{position:relative}
+.portrait img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:50% 18%;border-radius:4px}
+.portrait figcaption{font:400 12px/1.4 var(--f-mono);color:var(--muted);margin-top:10px}
+.portrait::before{content:"";position:absolute;inset:-12px 12px 24px -12px;border:1px solid var(--accent);border-radius:4px;z-index:-1}
+
+/* about */
+.about-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px;align-items:start}
+.about-grid img{border-radius:4px;aspect-ratio:3/4;object-fit:cover;width:100%}
+.prose p+p{margin-top:16px}
+.prose p{max-width:64ch}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden;margin-top:32px}
+.facts div{background:var(--surface);padding:18px}
+.facts strong{display:block;font:600 30px/1 var(--f-display);color:var(--accent);font-variant-numeric:tabular-nums}
+.facts span{font-size:13px;color:var(--muted)}
+.edu{margin-top:32px;padding-top:24px;border-top:1px solid var(--line);display:grid;gap:6px}
+.edu h3{font-size:20px}
+.edu .meta{font:400 13px/1.5 var(--f-mono);color:var(--muted)}
+
+/* research */
+.areas{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.area{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:26px}
+.area h3{font-size:21px;margin-bottom:8px}
+.area p{color:var(--muted)}
+.tools{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.tools span{font:400 12px/1 var(--f-mono);padding:6px 8px;border-radius:4px;background:var(--accent-soft);color:var(--ink)}
+.bench{display:grid;grid-template-columns:1.3fr 1fr;gap:20px;margin-top:20px}
+.bench figure{margin:0}
+.bench img{width:100%;height:100%;object-fit:cover;border-radius:6px;aspect-ratio:16/10}
+.bench figcaption,.shot figcaption{font:400 12px/1.4 var(--f-mono);color:var(--muted);margin-top:8px}
+
+/* publications */
+.pubs{display:grid;gap:0;border-top:1px solid var(--line)}
+.pub{display:grid;grid-template-columns:110px 1fr;gap:24px;padding-block:26px;border-bottom:1px solid var(--line)}
+.pub .yr{font:500 13px/1.6 var(--f-mono);color:var(--muted)}
+.status{display:inline-block;font:500 11px/1 var(--f-mono);letter-spacing:.04em;text-transform:uppercase;padding:5px 7px;border-radius:4px;margin-top:8px}
+.status.pub-ok{background:var(--accent);color:var(--bg)}
+.status.review{border:1px solid var(--amber);color:var(--amber)}
+.pub h3{font-size:20px;font-weight:600;line-height:1.3}
+.pub .authors{color:var(--muted);font-size:15px;margin-top:8px}
+.pub .authors b{color:var(--ink);font-weight:600}
+.pub .venue{font-size:15px;margin-top:4px}
+.pub .venue i{font-style:italic}
+.pub .links{display:flex;flex-wrap:wrap;gap:16px;margin-top:10px;font:400 13px/1.4 var(--f-mono)}
+
+/* presentations */
+.talks{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.talk{display:flex;flex-direction:column;gap:12px;min-width:0}
+.talk button{padding:0;border:0;background:none;cursor:zoom-in;border-radius:6px;overflow:hidden}
+.talk img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 25%;transition:transform .4s}
+.talk button:hover img{transform:scale(1.03)}
+.talk .kind{font:500 12px/1 var(--f-mono);color:var(--amber);text-transform:uppercase;letter-spacing:.05em}
+.talk h3{font-size:18px;line-height:1.3}
+.talk p{color:var(--muted);font-size:14px}
+.conf-list{margin-top:44px;display:grid;gap:0;border-top:1px solid var(--line)}
+.conf{display:grid;grid-template-columns:140px 1fr;gap:24px;padding-block:16px;border-bottom:1px solid var(--line)}
+.conf .d{font:400 13px/1.6 var(--f-mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.conf p{color:var(--muted);font-size:15px}
+.conf strong{color:var(--ink);font-weight:600}
+
+/* training */
+.train{display:grid;gap:0;border-top:1px solid var(--line)}
+.tr{display:grid;grid-template-columns:150px 1fr auto;gap:24px;align-items:center;padding-block:16px;border-bottom:1px solid var(--line)}
+.tr .d{font:400 13px/1.5 var(--f-mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.tr h3{font:600 17px/1.35 var(--f-body)}
+.tr p{color:var(--muted);font-size:14px}
+.tr button{font:500 13px/1 var(--f-mono);color:var(--accent);background:var(--accent-soft);border:0;border-radius:6px;padding:9px 12px;cursor:pointer;white-space:nowrap}
+.tr button:hover{background:var(--accent);color:var(--bg)}
+.tr .none{font:400 12px/1 var(--f-mono);color:var(--muted)}
+.certs{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px}
+.certs button{padding:0;border:1px solid var(--line);border-radius:4px;overflow:hidden;background:var(--surface);cursor:zoom-in}
+.certs img{width:100%;aspect-ratio:1.42;object-fit:cover;transition:transform .4s}
+.certs button:hover img{transform:scale(1.04)}
+
+/* activities */
+.acts{display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:start}
+.act-list{display:grid;gap:0;border-top:1px solid var(--line)}
+.act{display:grid;grid-template-columns:110px 1fr;gap:20px;padding-block:18px;border-bottom:1px solid var(--line)}
+.act .d{font:400 13px/1.6 var(--f-mono);color:var(--muted)}
+.act h3{font:600 17px/1.35 var(--f-body)}
+.act p{color:var(--muted);font-size:14px}
+.act-imgs{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.act-imgs button{padding:0;border:0;background:none;border-radius:6px;overflow:hidden;cursor:zoom-in}
+.act-imgs button.wide{grid-column:1/-1}
+.act-imgs img{width:100%;aspect-ratio:1;object-fit:cover}
+.act-imgs .wide img{aspect-ratio:1.43}
+
+/* gallery */
+.gallery{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:150px;gap:14px}
+.gallery button{padding:0;border:0;background:none;border-radius:6px;overflow:hidden;cursor:zoom-in;position:relative}
+.gallery img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.gallery button:hover img{transform:scale(1.04)}
+.g1{grid-column:span 4;grid-row:span 2}.g2{grid-column:span 2;grid-row:span 2}
+.g3{grid-column:span 2;grid-row:span 2}.g4{grid-column:span 2;grid-row:span 2}.g5{grid-column:span 2;grid-row:span 2}
+.g6{grid-column:span 3;grid-row:span 2}.g7{grid-column:span 3;grid-row:span 2}
+
+/* lab + contact */
+.lab{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:center}
+.lab .logo{background:#ffffff;border-radius:6px;border:1px solid var(--line);padding:12px}
+.contact{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:start}
+.contact .h2{max-width:16ch}
+.links-list{display:grid;gap:0;border-top:1px solid var(--line)}
+.links-list a,.links-list div{display:flex;justify-content:space-between;gap:16px;padding-block:16px;border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink);font-size:16px;min-width:0}
+.links-list span{font:400 13px/1.6 var(--f-mono);color:var(--muted);overflow-wrap:anywhere;text-align:right}
+.links-list a:hover{color:var(--accent)}
+.copy{font:500 12px/1 var(--f-mono);border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:6px;padding:7px 10px;cursor:pointer}
+footer{padding-block:32px;font:400 13px/1.6 var(--f-mono);color:var(--muted)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:50;background:var(--shade);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+  padding:max(20px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(20px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px))}
+.lb img{max-height:80vh;max-width:min(1200px,100%);width:auto;border-radius:4px;object-fit:contain}
+.lb p{color:#e6eeeb;font:400 14px/1.5 var(--f-mono);text-align:center;max-width:70ch}
+.lb .x{position:absolute;top:max(14px, env(safe-area-inset-top, 0px));right:max(14px, env(safe-area-inset-right, 0px));background:#ffffff;color:#0f201c;border:0;border-radius:6px;font:500 14px/1 var(--f-body);padding:10px 14px;cursor:pointer}
+.lb .nav-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.14);color:#ffffff;border:0;width:44px;height:44px;border-radius:50%;font-size:22px;cursor:pointer}
+.lb .prev{left:max(10px, env(safe-area-inset-left, 0px))}.lb .next{right:max(10px, env(safe-area-inset-right, 0px))}
+
+@media (max-width: 900px){
+  .hero-grid,.about-grid,.acts,.lab,.contact{grid-template-columns:1fr;gap:36px}
+  .portrait{max-width:420px}
+  .talks{grid-template-columns:1fr 1fr}
+  .certs{grid-template-columns:repeat(3,1fr)}
+  .about-grid img{max-width:380px}
+}
+@media (max-width: 640px){
+  section{padding-block:52px}
+  .top .wrap{gap:12px}
+  .brand{display:none}
+  .nav{margin-left:0}
+  .areas,.bench,.talks{grid-template-columns:1fr}
+  .pub,.conf,.act{grid-template-columns:1fr;gap:6px}
+  .tr{grid-template-columns:1fr;gap:6px;align-items:start}
+  .tr button{justify-self:start;margin-top:6px}
+  .certs{grid-template-columns:repeat(2,1fr)}
+  .facts{grid-template-columns:1fr 1fr 1fr}
+  .facts strong{font-size:24px}
+  .gallery{grid-template-columns:1fr 1fr;grid-auto-rows:140px}
+  .gallery button{grid-column:span 1!important;grid-row:span 2!important}
+  .gallery .g1,.gallery .g6,.gallery .g7{grid-column:span 2!important}
+  .record{grid-template-columns:1fr;row-gap:0}
+  .record dd{margin-bottom:8px}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top">rsj<span>.</span>rafad</a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#about">About</a><a href="#research">Research</a><a href="#publications">Publications</a>
+      <a href="#presentations">Presentations</a><a href="#training">Training</a><a href="#activities">Activities</a>
+      <a href="#gallery">Gallery</a><a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">Microbiologist · Bioinformatics researcher</p>
+      <h1>Raf Son Jany Rafad<br><em>reading microbes through their genomes.</em></h1>
+      <p class="intro">I use whole-genome sequencing, metagenomics and structural bioinformatics to study antimicrobial-resistant bacteria and the protein interactions behind disease.</p>
+      <div class="cta">
+        <a class="btn primary" href="#publications">View publications</a>
+        <a class="btn" href="https://scholar.google.com/citations?user=2KoAAiwAAAAJ" target="_blank" rel="noopener">Google Scholar ↗</a>
+      </div>
+      <dl class="record">
+        <dt>affiliation</dt><dd>Microbial Biodiversity and Bioinformatics Laboratory, JUST</dd>
+        <dt>degree</dt><dd>B.Sc. in Microbiology, CGPA 3.70 / 4.00</dd>
+        <dt>based_in</dt><dd>Jashore, Bangladesh</dd>
+      </dl>
+    </div>
+    <figure class="portrait" style="margin:0">
+      <img src="images/portrait-thesis.jpg" alt="Raf Son Jany Rafad holding his bound undergraduate thesis" width="941" height="1400">
+      <figcaption>With the bound B.Sc. thesis, Department of Microbiology, JUST</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about-grid">
+    <img src="images/portrait-lights.jpg" alt="Portrait of Raf Son Jany Rafad" width="1050" height="1400" loading="lazy">
+    <div>
+      <p class="label">&gt;about</p>
+      <h2 class="h2">From the culture plate to the command line.</h2>
+      <div class="prose" style="margin-top:20px">
+        <p>I am a microbiology graduate of Jashore University of Science and Technology (JUST), Bangladesh, and work in the Microbial Biodiversity and Bioinformatics Laboratory. My research sits where wet-lab microbiology meets computational biology.</p>
+        <p>My undergraduate thesis characterised cancer-associated mutations in the anti-apoptotic protein MCL-1 and how they change its binding to BAK. I have also contributed to the first genomic report of epidemic clade 2.5.6 <i>Acinetobacter baumannii</i> from hospital surfaces in Bangladesh, and I build Linux pipelines for genome assembly, pangenome and resistome analysis.</p>
+        <p>Before moving into bioinformatics, I worked as a project assistant in the General Microbiology Lab at JUST on microbial contamination of sports clothing and the antibacterial effect of chitosan-treated fabric.</p>
+      </div>
+      <div class="facts">
+        <div><strong>1</strong><span>Published journal article</span></div>
+        <div><strong>2</strong><span>Manuscripts under review</span></div>
+        <div><strong>9</strong><span>Training courses and workshops</span></div>
+      </div>
+      <div class="edu">
+        <p class="label" style="margin-bottom:6px">&gt;education</p>
+        <h3>B.Sc. in Microbiology</h3>
+        <p>Jashore University of Science and Technology</p>
+        <p class="meta">Jan 2020 – May 2025 · CGPA 3.70 / 4.00</p>
+        <p style="color:var(--muted);font-size:15px;margin-top:6px">Thesis: <i>In Silico Characterization of MCL-1L Mutations and MCL-1–BAK Interaction Dynamics: Insights into Cancer Cell Survival Mechanisms</i></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="research">
+  <div class="wrap">
+    <div class="head">
+      <p class="label">&gt;research <b>areas=4</b></p>
+      <h2 class="h2">What I work on</h2>
+      <p class="lede">Most of my work runs on Ubuntu workstations in the lab, with sequencing data, protein structures and the occasional very long database download.</p>
+    </div>
+    <div class="areas">
+      <article class="area">
+        <h3>Bacterial genomics and AMR</h3>
+        <p>Assembling and annotating bacterial genomes from long and short reads, then tracing lineages, resistance genes and pangenome structure in clinical and environmental isolates.</p>
+        <div class="tools"><span>Filtlong</span><span>Flye</span><span>BUSCO</span><span>Prokka</span><span>Roary</span><span>ggCaller</span><span>pyANI</span></div>
+      </article>
+      <article class="area">
+        <h3>Structural bioinformatics</h3>
+        <p>Predicting how missense mutations change protein stability and protein–protein binding, using modelling, docking and binding-affinity estimation.</p>
+        <div class="tools"><span>PyMOL</span><span>UCSF Chimera</span><span>AutoDock Vina</span><span>Maestro</span><span>HADDOCK</span><span>MEGA 12</span></div>
+      </article>
+      <article class="area">
+        <h3>Metagenomics</h3>
+        <p>16S rRNA amplicon analysis from raw reads to community profiles, with quality control and taxonomic classification.</p>
+        <div class="tools"><span>FastQC</span><span>MultiQC</span><span>Trimmomatic</span><span>QIIME 2</span></div>
+      </article>
+      <article class="area">
+        <h3>Single-cell and data analysis</h3>
+        <p>scRNA-seq processing and clustering, plus statistical analysis and visualisation in R and Python.</p>
+        <div class="tools"><span>fastp</span><span>Seurat</span><span>RStudio</span><span>Python</span><span>SPSS</span></div>
+      </article>
+    </div>
+    <div class="bench">
+      <figure class="shot">
+        <img src="images/desk-setup.jpg" alt="Lab workstation with a terminal running KOFAM annotation, a laptop showing a Sanger chromatogram, and a monitor with an NCBI submission form" width="1600" height="901" loading="lazy">
+        <figcaption>KOFAM annotation, a Sanger trace and an NCBI submission, all running at once</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="images/workstation.jpg" alt="Raf Son Jany Rafad at a workstation while the VIBRANT database downloads" width="1355" height="1400" loading="lazy" style="object-position:50% 30%">
+        <figcaption>Setting up the VIBRANT phage database</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section id="publications">
+  <div class="wrap">
+    <div class="head">
+      <p class="label">&gt;publications <b>n=3</b></p>
+      <h2 class="h2">Publications</h2>
+      <p class="lede">The full list, with any new citations, is on <a href="https://scholar.google.com/citations?user=2KoAAiwAAAAJ" target="_blank" rel="noopener">Google Scholar</a>.</p>
+    </div>
+    <div class="pubs">
+      <article class="pub">
+        <div class="yr">2026<br><span class="status pub-ok">Published</span></div>
+        <div>
+          <h3>First genomic report of epidemic super-lineage, clade 2.5.6 <i>Acinetobacter baumannii</i> from hospital environmental surfaces in Bangladesh</h3>
+          <p class="authors">Chakrovarty T, Islam T, Haque MT, Miah R, <b>Rafad RSJ</b>, Anu IL, Hasan MM, Kador SM, Islam MT, Islam OK</p>
+          <p class="venue"><i>Scientific Reports</i> · published 8 August 2026 · open access</p>
+          <div class="links"><a href="https://doi.org/10.1038/s41598-026-65598-y" target="_blank" rel="noopener">doi:10.1038/s41598-026-65598-y ↗</a></div>
+        </div>
+      </article>
+      <article class="pub">
+        <div class="yr">2026<br><span class="status review">Under review</span></div>
+        <div>
+          <h3>Somatic missense mutations at the MCL-1 BH3-binding groove paradoxically enhance BAK sequestration: computational evidence for apoptotic resistance</h3>
+          <p class="authors"><b>Rafad RSJ</b>, Chakrovarty T, Anjume H, Chakraborty D, Akter M, Biswas F, Neyamul M, Afrin MM</p>
+          <p class="venue">Submitted to <i>Computational Biology and Chemistry</i> · preprint on Research Square</p>
+          <div class="links"><a href="https://doi.org/10.21203/rs.3.rs-9825806/v1" target="_blank" rel="noopener">Preprint doi:10.21203/rs.3.rs-9825806/v1 ↗</a></div>
+        </div>
+      </article>
+      <article class="pub">
+        <div class="yr">2026<br><span class="status review">Under review</span></div>
+        <div>
+          <h3>Population genomics and immunoinformatics analyses identify <i>Alternaria destruens</i> as a cryptic pathogen of tomato with Alt a 1–mediated allergenic potential</h3>
+          <p class="authors">Rezve M, Sultana MS, <b>Rafad RSJ</b>, Islam S, Mamun SMAA, Islam MR, Mondal C</p>
+          <p class="venue">Submitted to <i>Journal of Plant Diseases and Protection</i></p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="presentations">
+  <div class="wrap">
+    <div class="head">
+      <p class="label">&gt;presentations <b>posters=2 · talks=1</b></p>
+      <h2 class="h2">Conferences and presentations</h2>
+    </div>
+    <div class="talks">
+      <article class="talk">
+        <button type="button" data-lb="images/poster-mcl1.jpg" data-cap="Explaining the MCL-1 poster (NGM-R-16) at the NextGen Microbiology conference, JUST, 2025"><img src="images/poster-mcl1.jpg" alt="Explaining the MCL-1 research poster to a visitor" loading="lazy"></button>
+        <p class="kind">Poster · 2025</p>
+        <h3>In silico characterization of MCL-1L mutations and MCL-1–BAK interaction dynamics</h3>
+        <p>1st National Conference and Workshop on NextGen Microbiology: Genomics &amp; Research in the Age of AI, JUST. <a href="https://doi.org/10.13140/RG.2.2.32200.38404" target="_blank" rel="noopener">DOI ↗</a></p>
+      </article>
+      <article class="talk">
+        <button type="button" data-lb="images/poster-reovirus.jpg" data-cap="Beside the Oncolytic Reovirus poster at the 1st National Conference on Innovations in Molecular Life Science, JUST, 2025"><img src="images/poster-reovirus.jpg" alt="Standing beside the oncolytic reovirus research poster" loading="lazy"></button>
+        <p class="kind">Poster · 2025</p>
+        <h3>An in-silico analysis of the therapeutic potential of oncolytic reovirus for targeted breast cancer virotherapy</h3>
+        <p>1st National Conference on Innovations in Molecular Life Science, Department of Biochemistry and Molecular Biology, JUST. <a href="https://doi.org/10.13140/RG.2.2.19198.04167" target="_blank" rel="noopener">DOI ↗</a></p>
+      </article>
+      <article class="talk">
+        <button type="button" data-lb="images/talk-mcl1.jpg" data-cap="Presenting the methods of the MCL-1 study, Department of Microbiology, JUST"><img src="images/talk-mcl1.jpg" alt="Giving an oral presentation on MCL-1 interaction analysis" loading="lazy" style="object-position:75% 40%"></button>
+        <p class="kind">Talk</p>
+        <h3>MCL-1 mutations and BAK binding: methods and findings</h3>
+        <p>Oral presentation of the thesis research to the Department of Microbiology, JUST.</p>
+      </article>
+    </div>
+    <div class="conf-list">
+      <div class="conf"><p class="d">Sep 2026</p><p><strong>NextGen Microbiology II</strong>, 2nd National Conference on Emerging Horizons of Microbiology, with post-conference workshops in advanced microscopy and molecular techniques. JUST.</p></div>
+      <div class="conf"><p class="d">19 Jul 2025</p><p><strong>National Pharma Conference on Bridging Research and Practice</strong>, Department of Pharmacy, JUST.</p></div>
+      <div class="conf"><p class="d">2025</p><p><strong>1st National Conference and Workshop on NextGen Microbiology</strong>, Genomics &amp; Research in the Age of AI. Poster presenter.</p></div>
+      <div class="conf"><p class="d">2025</p><p><strong>1st National Conference on Innovations in Molecular Life Science</strong>, Department of Biochemistry and Molecular Biology, JUST. Poster presenter.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="training">
+  <div class="wrap">
+    <div class="head">
+      <p class="label">&gt;training <b>n=9</b></p>
+      <h2 class="h2">Training and certification</h2>
+      <p class="lede">Select a certificate to view it full size.</p>
+    </div>
+    <div class="train">
+      <div class="tr"><p class="d">29–30 Sep 2026</p><div><h3>Advanced Molecular Techniques</h3><p>Post-conference workshop, NextGen Microbiology II and IµD 2026 · Department of Microbiology and Genome Centre, JUST</p></div><button type="button" data-lb="images/cert-molecular-techniques.jpg" data-cap="Workshop on Advanced Molecular Techniques, JUST, 29–30 September 2026">Certificate</button></div>
+      <div class="tr"><p class="d">27–28 Sep 2026</p><div><h3>Advanced Microscopy</h3><p>Post-conference workshop, NextGen Microbiology II and IµD 2026 · Department of Microbiology and Genome Centre, JUST</p></div><button type="button" data-lb="images/cert-microscopy.jpg" data-cap="Workshop on Advanced Microscopy, JUST, 27–28 September 2026">Certificate</button></div>
+      <div class="tr"><p class="d">8–9 Aug 2025</p><div><h3>Learn KoboToolbox and SPSS</h3><p>BioPC, A Bioinformatics Lab of Research and Training</p></div><button type="button" data-lb="images/cert-biopc-spss.jpg" data-cap="Learn KoboToolbox and SPSS with BioPC, 8–9 August 2025">Certificate</button></div>
+      <div class="tr"><p class="d">1–4 Aug 2025</p><div><h3>Single-Cell Genomics Data Analysis (scRNA-seq)</h3><p>BioMac Lab</p></div><button type="button" data-lb="images/cert-biomac-scrna.jpg" data-cap="Single-Cell Genomics Data Analysis (scRNA-seq), BioMac Lab, 1–4 August 2025">Certificate</button></div>
+      <div class="tr"><p class="d">9 Jul – 2 Aug 2025</p><div><h3>Computer Aided Drug and Vaccine Design</h3><p>Three-week course with molecular dynamics simulation · BioPC</p></div><button type="button" data-lb="images/cert-biopc-cadd.jpg" data-cap="Computer Aided Drug and Vaccine Design, BioPC, 9 July – 2 August 2025">Certificate</button></div>
+      <div class="tr"><p class="d">20–23 Jun 2025</p><div><h3>Bacterial Genome Assembly and Comparative Genomics Using Long and Short Reads</h3><p>BioMac Lab</p></div><button type="button" data-lb="images/cert-biomac-genome.jpg" data-cap="Bacterial Genome Assembly and Comparative Genomics Using Long and Short Reads, BioMac Lab, 20–23 June 2025">Certificate</button></div>
+      <div class="tr"><p class="d">30 May – 1 Jun 2025</p><div><h3>Metagenomics Data Analysis: From Raw Data to Biological Insights</h3><p>BioMac Lab</p></div><button type="button" data-lb="images/cert-biomac-metagenomics.jpg" data-cap="Metagenomics Data Analysis: From Raw Data to Biological Insights, BioMac Lab, 30 May – 1 June 2025">Certificate</button></div>
+      <div class="tr"><p class="d">Dec 2024 – Feb 2025</p><div><h3>Data Analysis with Python (80 hours)</h3><p>EDGE Project, Bangladesh Computer Council, ICT Division · Department of CSE, JUST</p></div><button type="button" data-lb="images/cert-edge-python.jpg" data-cap="Data Analysis with Python, EDGE Project, Dec 2024 – Feb 2025">Certificate</button></div>
+      <div class="tr"><p class="d">Jun 2023</p><div><h3>Introduction to Genomic Study: A Next Generation Sequencing Approach</h3><p>Department of Microbiology, JUST</p></div><span class="none">no certificate</span></div>
+    </div>
+    <p class="label" style="margin-top:48px">&gt;certificates_and_awards <b>n=13</b></p>
+    <div class="certs" id="cert-grid"></div>
+  </div>
+</section>
+
+<section id="activities">
+  <div class="wrap">
+    <div class="head">
+      <p class="label">&gt;activities_and_awards</p>
+      <h2 class="h2">Beyond the bench</h2>
+    </div>
+    <div class="acts">
+      <div class="act-list">
+        <div class="act"><p class="d">2025</p><div><h3>Golden Heart Award, Best Donor</h3><p>JUST Blood Bank, presented by the Office of the Director (Student Counselling and Guidance), JUST, for voluntary blood donation.</p></div></div>
+        <div class="act"><p class="d">2025–26</p><div><h3>Campus Coordinator, Dawn of Bioinformatics Ltd</h3><p>Representing the organisation's bioinformatics training programmes at JUST.</p></div></div>
+        <div class="act"><p class="d">2024–25</p><div><h3>Vice President, JUST ResearchOrbit Society</h3><p>Student research society at Jashore University of Science and Technology.</p></div></div>
+        <div class="act"><p class="d">2024–25</p><div><h3>Campus Ambassador, Panacea Research Center</h3><p>Campus representative at JUST.</p></div></div>
+        <div class="act"><p class="d">2024</p><div><h3>Founding member, JUST Microbiology Club</h3><p>Department of Microbiology, JUST.</p></div></div>
+      </div>
+      <div class="act-imgs">
+        <button type="button" class="wide" data-lb="images/cert-golden-heart.jpg" data-cap="Golden Heart Award 2025, JUST Blood Bank"><img src="images/cert-golden-heart.jpg" alt="Golden Heart Award 2025 certificate" loading="lazy"></button>
+        <button type="button" data-lb="images/role-dawn.jpg" data-cap="Dawn of Bioinformatics campus coordinator announcement, 2025"><img src="images/role-dawn.jpg" alt="Dawn of Bioinformatics campus coordinator announcement" loading="lazy"></button>
+        <button type="button" data-lb="images/role-panacea.jpg" data-cap="Panacea Research Center campus ambassador announcement"><img src="images/role-panacea.jpg" alt="Panacea Research Center campus ambassador announcement" loading="lazy"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="wrap">
+    <div class="head">
+      <p class="label">&gt;gallery <b>photos=7</b></p>
+      <h2 class="h2">Moments</h2>
+    </div>
+    <div class="gallery">
+      <button type="button" class="g1" data-lb="images/nextgen2-group.jpg" data-cap="With fellow researchers at NextGen Microbiology II, JUST, September 2026"><img src="images/nextgen2-group.jpg" alt="Group photo of researchers at the NextGen Microbiology II backdrop" loading="lazy"></button>
+      <button type="button" class="g2" data-lb="images/nextgen2-portrait.jpg" data-cap="NextGen Microbiology II, 2nd National Conference on Emerging Horizons of Microbiology"><img src="images/nextgen2-portrait.jpg" alt="At the NextGen Microbiology II conference backdrop" loading="lazy" style="object-position:50% 40%"></button>
+      <button type="button" class="g3" data-lb="images/edge-ceremony.jpg" data-cap="Receiving the Data Analysis with Python certificate, EDGE ceremony, 16 September 2025"><img src="images/edge-ceremony.jpg" alt="Receiving the EDGE Data Analysis with Python certificate" loading="lazy"></button>
+      <button type="button" class="g4" data-lb="images/workstation.jpg" data-cap="At the lab workstation"><img src="images/workstation.jpg" alt="At the lab workstation" loading="lazy" style="object-position:30% 30%"></button>
+      <button type="button" class="g5" data-lb="images/portrait-casual.jpg" data-cap="On campus"><img src="images/portrait-casual.jpg" alt="Casual portrait on campus" loading="lazy" style="object-position:50% 25%"></button>
+      <button type="button" class="g6" data-lb="images/poster-mcl1.jpg" data-cap="Discussing the MCL-1 poster"><img src="images/poster-mcl1.jpg" alt="Discussing the MCL-1 poster" loading="lazy" style="object-position:50% 35%"></button>
+      <button type="button" class="g7" data-lb="images/desk-setup.jpg" data-cap="Three screens, three analyses"><img src="images/desk-setup.jpg" alt="Lab desk with three screens" loading="lazy"></button>
+    </div>
+  </div>
+</section>
+
+<section id="lab">
+  <div class="wrap lab">
+    <img class="logo" src="images/mdbl-logo.jpg" alt="Microbial Diversity and Bioinformatics Laboratory logo" width="1000" height="545" loading="lazy">
+    <div>
+      <p class="label">&gt;current_lab</p>
+      <h2 class="h2">Microbial Biodiversity and Bioinformatics Laboratory</h2>
+      <p class="lede">Department of Microbiology, Jashore University of Science and Technology, Jashore 7408, Bangladesh. The lab combines culture-based microbiology with genome sequencing and computational analysis of bacteria, phages and microbial communities.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact" style="border-bottom:0">
+  <div class="wrap contact">
+    <div>
+      <p class="label">&gt;contact</p>
+      <h2 class="h2">Open to research collaborations and graduate opportunities.</h2>
+      <p class="lede">I am interested in bacterial genomics, antimicrobial resistance and computational structural biology. Email is the best way to reach me.</p>
+    </div>
+    <div class="links-list">
+      <div><span style="text-align:left;color:var(--ink);font:400 16px/1.6 var(--f-body)">rsjrafad@gmail.com</span><button type="button" class="copy" id="copy-email">Copy email</button></div>
+      <a href="https://scholar.google.com/citations?user=2KoAAiwAAAAJ" target="_blank" rel="noopener">Google Scholar <span>↗</span></a>
+      <a href="https://www.researchgate.net/profile/Raf-Son-Rafad" target="_blank" rel="noopener">ResearchGate <span>↗</span></a>
+      <a href="https://www.linkedin.com/in/raf-son-jany/" target="_blank" rel="noopener">LinkedIn <span>↗</span></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap"><span>© 2026 Raf Son Jany Rafad</span><span>Jashore, Bangladesh</span></div>
+</footer>
+
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button type="button" class="x" id="lb-x">Close</button>
+  <button type="button" class="nav-btn prev" id="lb-prev" aria-label="Previous image">‹</button>
+  <img id="lb-img" alt="">
+  <p id="lb-cap"></p>
+  <button type="button" class="nav-btn next" id="lb-next" aria-label="Next image">›</button>
+</div>
+
+<script>
+(function(){
+  var certs=[
+    ["cert-golden-heart","Golden Heart Award 2025, JUST Blood Bank"],
+    ["cert-molecular-techniques","Workshop on Advanced Molecular Techniques, JUST, 2026"],
+    ["cert-microscopy","Workshop on Advanced Microscopy, JUST, 2026"],
+    ["cert-imls-poster","Poster presentation, 1st National Conference on Innovations in Molecular Life Science"],
+    ["cert-pharma-conference","National Pharma Conference on Bridging Research and Practice, 19 July 2025"],
+    ["cert-biopc-cadd","Computer Aided Drug and Vaccine Design, BioPC, 2025"],
+    ["cert-biopc-spss","Learn KoboToolbox and SPSS, BioPC, 2025"],
+    ["cert-biomac-scrna","Single-Cell Genomics Data Analysis (scRNA-seq), BioMac Lab, 2025"],
+    ["cert-biomac-genome","Bacterial Genome Assembly and Comparative Genomics, BioMac Lab, 2025"],
+    ["cert-biomac-metagenomics","Metagenomics Data Analysis, BioMac Lab, 2025"],
+    ["cert-edge-python","Data Analysis with Python, EDGE Project, 2024–25"],
+    ["role-dawn","Dawn of Bioinformatics campus coordinator, 2025"],
+    ["role-panacea","Panacea Research Center campus ambassador"]
+  ];
+  var grid=document.getElementById("cert-grid");
+  certs.forEach(function(c){
+    var b=document.createElement("button");b.type="button";
+    b.setAttribute("data-lb","images/"+c[0]+".jpg");b.setAttribute("data-cap",c[1]);
+    var i=document.createElement("img");i.src="images/"+c[0]+".jpg";i.alt=c[1];i.loading="lazy";
+    b.appendChild(i);grid.appendChild(b);
+  });
+
+  var lb=document.getElementById("lb"),img=document.getElementById("lb-img"),cap=document.getElementById("lb-cap");
+  var list=[],idx=0,last=null;
+  function show(i){idx=(i+list.length)%list.length;var el=list[idx];img.src=el.getAttribute("data-lb");img.alt=el.getAttribute("data-cap");cap.textContent=el.getAttribute("data-cap");}
+  function open(el){
+    var group=el.closest("section");list=Array.prototype.slice.call(group.querySelectorAll("[data-lb]"));
+    last=el;lb.hidden=false;show(list.indexOf(el));document.getElementById("lb-x").focus();
+  }
+  function close(){lb.hidden=true;img.removeAttribute("src");if(last)last.focus();}
+  document.addEventListener("click",function(e){var t=e.target.closest("[data-lb]");if(t){e.preventDefault();open(t);}});
+  document.getElementById("lb-x").onclick=close;
+  document.getElementById("lb-prev").onclick=function(){show(idx-1)};
+  document.getElementById("lb-next").onclick=function(){show(idx+1)};
+  lb.addEventListener("click",function(e){if(e.target===lb)close();});
+  document.addEventListener("keydown",function(e){if(lb.hidden)return;if(e.key==="Escape")close();if(e.key==="ArrowLeft")show(idx-1);if(e.key==="ArrowRight")show(idx+1);});
+
+  var cb=document.getElementById("copy-email");
+  cb.onclick=function(){
+    var done=function(){cb.textContent="Copied";setTimeout(function(){cb.textContent="Copy email"},1600)};
+    try{navigator.clipboard.writeText("rsjrafad@gmail.com").then(done,function(){cb.textContent="rsjrafad@gmail.com"});}catch(err){cb.textContent="rsjrafad@gmail.com"}
+  };
+})();
+</script>
+</body>
+</html>
