@@ -105,6 +105,8 @@ section{padding-block:72px;border-bottom:1px solid var(--line)}
 .bench figure{margin:0}
 .bench img{width:100%;height:100%;object-fit:cover;border-radius:6px;aspect-ratio:16/10}
 .bench figcaption,.shot figcaption{font:400 12px/1.4 var(--f-mono);color:var(--muted);margin-top:8px}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pair img{height:auto;aspect-ratio:3/4}
 
 /* publications */
 .pubs{display:grid;gap:0;border-top:1px solid var(--line)}
@@ -317,10 +319,16 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
         <img src="images/desk-setup.jpg" alt="Lab workstation with a terminal running KOFAM annotation, a laptop showing a Sanger chromatogram, and a monitor with an NCBI submission form" width="1600" height="901" loading="lazy">
         <figcaption>KOFAM annotation, a Sanger trace and an NCBI submission, all running at once</figcaption>
       </figure>
-      <figure class="shot">
-        <img src="images/workstation.jpg" alt="Raf Son Jany Rafad at a workstation while the VIBRANT database downloads" width="1355" height="1400" loading="lazy" style="object-position:50% 30%">
-        <figcaption>Setting up the VIBRANT phage database</figcaption>
-      </figure>
+      <div class="pair">
+        <figure class="shot">
+          <img src="images/lab-pipetting.jpg" alt="Pipetting onto a culture plate at the lab bench" width="1086" height="1448" loading="lazy">
+          <figcaption>Pipetting onto a culture plate at the bench</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="images/lab-biosafety-cabinet.jpg" alt="Handling a culture plate inside a biosafety cabinet" width="1200" height="1600" loading="lazy">
+          <figcaption>Culture work in the biosafety cabinet</figcaption>
+        </figure>
+      </div>
     </div>
   </div>
 </section>
