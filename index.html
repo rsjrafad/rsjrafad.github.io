@@ -294,9 +294,9 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
     </div>
     <div class="areas">
       <article class="area">
-        <h3>Bacterial genomics and AMR</h3>
-        <p>Assembling and annotating bacterial genomes from long and short reads, then tracing lineages, resistance genes and pangenome structure in clinical and environmental isolates.</p>
-        <div class="tools"><span>Filtlong</span><span>Flye</span><span>BUSCO</span><span>Prokka</span><span>Roary</span><span>ggCaller</span><span>pyANI</span></div>
+        <h3>Bacterial genomics and Metagenomics</h3>
+        <p>Assembling and annotating bacterial genomes to trace lineages, resistance genes and pangenome structure, plus 16S rRNA amplicon analysis from raw reads to taxonomic profiles.</p>
+        <div class="tools"><span>Filtlong</span><span>Flye</span><span>BUSCO</span><span>Prokka</span><span>Roary</span><span>ggCaller</span><span>pyANI</span><span>FastQC</span><span>MultiQC</span><span>Trimmomatic</span><span>QIIME 2</span></div>
       </article>
       <article class="area">
         <h3>Structural bioinformatics</h3>
@@ -304,14 +304,14 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
         <div class="tools"><span>PyMOL</span><span>UCSF Chimera</span><span>AutoDock Vina</span><span>Maestro</span><span>HADDOCK</span><span>MEGA 12</span></div>
       </article>
       <article class="area">
-        <h3>Metagenomics</h3>
-        <p>16S rRNA amplicon analysis from raw reads to community profiles, with quality control and taxonomic classification.</p>
-        <div class="tools"><span>FastQC</span><span>MultiQC</span><span>Trimmomatic</span><span>QIIME 2</span></div>
-      </article>
-      <article class="area">
         <h3>Single-cell and data analysis</h3>
         <p>scRNA-seq processing and clustering, plus statistical analysis and visualisation in R and Python.</p>
         <div class="tools"><span>fastp</span><span>Seurat</span><span>RStudio</span><span>Python</span><span>SPSS</span></div>
+      </article>
+      <article class="area">
+        <h3>Microbiological expertise</h3>
+        <p>Hands-on laboratory microbiology, from culturing and identifying bacteria to testing antibiotic susceptibility and preparing nucleic acids for molecular work.</p>
+        <div class="tools"><span>Bacterial culture</span><span>Antimicrobial susceptibility testing</span><span>Biochemical identification</span><span>DNA/RNA extraction</span><span>PCR</span></div>
       </article>
     </div>
     <div class="bench">
@@ -553,10 +553,4 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 
   var cb=document.getElementById("copy-email");
   cb.onclick=function(){
-    var done=function(){cb.textContent="Copied";setTimeout(function(){cb.textContent="Copy email"},1600)};
-    try{navigator.clipboard.writeText("rsjrafad@gmail.com").then(done,function(){cb.textContent="rsjrafad@gmail.com"});}catch(err){cb.textContent="rsjrafad@gmail.com"}
-  };
-})();
-</script>
-</body>
-</html>
+    var done=function(){cb.textContent="Copied";setTimeout(function(){cb.textConte
